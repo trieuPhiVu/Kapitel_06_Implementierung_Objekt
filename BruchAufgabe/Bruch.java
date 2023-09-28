@@ -1,5 +1,3 @@
-import java.text.BreakIterator;
-
 public class Bruch {
     private int zaehler;
     private int nenner;
