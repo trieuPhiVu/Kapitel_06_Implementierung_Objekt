@@ -47,6 +47,62 @@ public class Bruch {
         var m = Math.abs(this.zaehler);
         var n = Math.abs(this.nenner);
         var r = m % n;
-        
+        while (r > 0) {
+            m = n;
+            n = r;
+            r = m % r;
+        }
+        zaehler /= n;
+        nenner /= n;
+    }
+
+    public void gekuerztausgeben() {
+        kuerzen();
+        ausgeben();
+    }
+
+    public boolean equals(Bruch x) {
+        var a = new Bruch(zaehler, nenner);
+        var b = new Bruch(x.zaehler, x.nenner);
+        a.kuerzen();
+        b.kuerzen();
+        if ((a.zaehler == b.zaehler) && (b.zaehler == b.nenner)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Bruch addiere(Bruch b) {
+        this.kuerzen();
+        b.kuerzen();
+        Bruch temp;
+        if (this.nenner == b.nenner) {
+            temp = new Bruch(this.zaehler + b.zaehler, this.nenner);
+            temp.kuerzen();
+            return temp;
+        } else {
+            temp = new Bruch(((this.zaehler * b.nenner) + (b.zaehler * this.nenner)), this.nenner * b.nenner);
+            temp.kuerzen();
+            return temp;
+        }
+    }
+
+    public Bruch subtrahiere(Bruch b) {
+        this.kuerzen();
+        b.kuerzen();
+        Bruch temp;
+        if (this.nenner == b.nenner) {
+            temp = new Bruch(this.zaehler - b.zaehler, this.nenner);
+            temp.kuerzen();
+            return temp;
+        } else {
+            temp = new Bruch(((this.zaehler * b.nenner) - (b.zaehler * this.nenner)), this.nenner * b.nenner);
+            temp.kuerzen();
+            return temp;
+        }
+    }
+
+    public double dezimalwert() {
+        return (double)zaehler / nenner;
     }
 }
